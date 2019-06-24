@@ -11,3 +11,10 @@ variable "is_organization_trail" {
   default = false
 }
 
+variable "cloudwatch_log_group_arn" {
+  default = ""
+}
+
+variable "cloudwatch_cloudtrail_role_arn" {
+  default = ""
+}

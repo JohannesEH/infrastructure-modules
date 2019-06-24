@@ -1,11 +1,11 @@
 provider "aws" {
   version = "~> 1.60.0"
-  region = "${var.aws_region}"
+  region  = "${var.aws_region}"
 }
 
 provider "aws" {
   version = "~> 1.60.0"
-  region = "${var.aws_region}"
+  region  = "${var.aws_region}"
 
   # Assume the Organizational role in Workload account
   assume_role {
@@ -67,8 +67,27 @@ module "cloudtrail_local" {
   }
 }
 
+module "cloudwatch_cloudtrail" {
+  source           = "../../_sub/security/cloudwatch-cloudtrail"
+  aws_region       = "${var.aws_region}"
+  create_log_group = "${var.create_cloudwatch_log_group}"
+  log_group_name   = "${var.cloudwatch_central_log_group}"
+}
+
 resource "null_resource" "apply_tax_settings" {
   provisioner "local-exec" {
     command = "python3 /src/taxregistrations.py ${module.org_account.org_role_arn} ${var.tax_settings_document}"
+  }
+}
+
+# --------------------------------------------------
+# Hardening
+# --------------------------------------------------
+
+module "iam_hardening" {
+  source = "../../_sub/security/iam-hardening"
+
+  providers = {
+    aws = "aws.workload"
   }
 }

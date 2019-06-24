@@ -14,4 +14,6 @@ module "cloudtrail_central" {
   s3_bucket = "${var.cloudtrail_central_s3_bucket}"
   trail_name = "org-audit"
   is_organization_trail = true
+  cloudwatch_log_group_arn = "${data.terraform_remote_state.security-account.cloudwatch_cloudtrail_log_group_arn}"
+  cloudwatch_cloudtrail_role_arn = "${data.terraform_remote_state.security-account.cloudwatch_cloudtrail_role_arn}"
 }

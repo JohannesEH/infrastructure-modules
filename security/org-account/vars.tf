@@ -34,3 +34,11 @@ variable "create_cloudtrail_s3_bucket" {
 variable "cloudtrail_central_s3_bucket" {
   type = "string"
 }
+
+variable "create_cloudwatch_log_group" {
+  default = false
+}
+
+variable "cloudwatch_central_log_group" {
+  type = "string"
+}
