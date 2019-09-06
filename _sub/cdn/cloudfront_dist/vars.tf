@@ -2,6 +2,11 @@ variable "origins" {
   description = "List of origins that cloudfront should support."
 }
 
+variable "cache_behaviors" {
+  description = "List of origins that cloudfront should support."
+}
+
+
 variable "comment" {
   description = "A short description of the cloudfront distribution. Comments used to enable the user to distinquish between cloudfront distributions. It's also used to construct a proper prefix for lambda@edge function."
   default = ""
