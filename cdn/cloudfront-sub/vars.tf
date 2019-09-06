@@ -105,9 +105,9 @@ variable "cf_dist_domain_certificate_arn" {
   description = "The arn of the certificate that covers the custom domain if aliases is added to the cloudfront distribution."
 }
 
-variable "cf_dist_lambda_function_handler" {
-  description = "Name of the file the contains lambda code without file extension. Example 'redirect-rules'"
-}
+# variable "cf_dist_lambda_function_handler" {
+#   description = "Name of the file the contains lambda code without file extension. Example 'redirect-rules'"
+# }
 
 # variable "deploy_lambda_edge_func" {
 #   default = false
