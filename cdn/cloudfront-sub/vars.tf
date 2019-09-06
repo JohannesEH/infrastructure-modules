@@ -69,7 +69,7 @@ variable "cf_dist_cache_behaviors" {
       path_pattern                     = string
       allowed_methods                  = list(string)
       cached_methods                   = list(string)
-      forwarded_values_query_string    =  { default = false }
+      forwarded_values_query_string    = bool
       forwarded_values_cookies_forward = string
       viewer_protocol_policy           = string
       min_ttl                          = number
