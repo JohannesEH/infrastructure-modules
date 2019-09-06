@@ -28,15 +28,15 @@ variable "cf_dist_origins" {
     https_port                               = number
     protocol_policy                          = string
     ssl_protocols                            = list(string)
-    cache_behavior_path_pattern                     = string
-    cache_behavior_allowed_methods                  = list(string)
-    cache_behavior_cached_methods                   = list(string)
-    cache_behavior_forwarded_values_query_string    = bool
-    cache_behavior_forwarded_values_cookies_forward = string
-    cache_behavior_viewer_protocol_policy           = string
-    cache_behavior_min_ttl                          = number
-    cache_behavior_default_ttl                      = number
-    cache_behavior_max_ttl                          = number
+    # cache_behavior_path_pattern                     = string
+    # cache_behavior_allowed_methods                  = list(string)
+    # cache_behavior_cached_methods                   = list(string)
+    # cache_behavior_forwarded_values_query_string    = bool
+    # cache_behavior_forwarded_values_cookies_forward = string
+    # cache_behavior_viewer_protocol_policy           = string
+    # cache_behavior_min_ttl                          = number
+    # cache_behavior_default_ttl                      = number
+    # cache_behavior_max_ttl                          = number
   }))
 
   default = [{ 
@@ -48,15 +48,15 @@ variable "cf_dist_origins" {
     https_port                               = 443
     protocol_policy                          = "match-viewer"
     ssl_protocols                            = ["TLSv1.2"]
-    cache_behavior_path_pattern                     = ""
-    cache_behavior_allowed_methods                  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
-    cache_behavior_cached_methods                   = ["HEAD", "GET"]
-    cache_behavior_forwarded_values_query_string    = false
-    cache_behavior_forwarded_values_cookies_forward = "none"
-    cache_behavior_viewer_protocol_policy           = "allow-all"
-    cache_behavior_min_ttl                          = null
-    cache_behavior_default_ttl                      = null
-    cache_behavior_max_ttl                          = null
+    # cache_behavior_path_pattern                     = ""
+    # cache_behavior_allowed_methods                  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
+    # cache_behavior_cached_methods                   = ["HEAD", "GET"]
+    # cache_behavior_forwarded_values_query_string    = false
+    # cache_behavior_forwarded_values_cookies_forward = "none"
+    # cache_behavior_viewer_protocol_policy           = "allow-all"
+    # cache_behavior_min_ttl                          = null
+    # cache_behavior_default_ttl                      = null
+    # cache_behavior_max_ttl                          = null
   }]
   
 
