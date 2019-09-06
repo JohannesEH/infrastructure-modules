@@ -33,5 +33,5 @@ module "s3_object_upload_lambda_edge" {
   deploy = "${var.deploy_lambda_edge_func}"
   s3_bucket = "${var.s3_bucket}"
   key = "${var.lambda_edge_zip_filepath}"
-  filepath = "${file(var.lambda_edge_zip_filepath)}"
+  filepath = "${var.lambda_edge_zip_filepath}"
 }
