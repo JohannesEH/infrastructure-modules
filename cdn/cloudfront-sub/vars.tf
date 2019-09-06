@@ -76,6 +76,26 @@ variable "cf_dist_cache_behaviors" {
       default_ttl                      = number
       max_ttl                          = number        
     }))
+
+  default = [{ 
+    # domain_name                              = "example.com"
+    # origin_path                              = ""
+    # default_root_object                             = "index.html"
+    # is_s3_origin                                    = false
+    # http_port                                = 80
+    # https_port                               = 443
+    # protocol_policy                          = "match-viewer"
+    # ssl_protocols                            = ["TLSv1.2"]
+    path_pattern                     = ""
+    allowed_methods                  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
+    cached_methods                   = ["HEAD", "GET"]
+    forwarded_values_query_string    = false
+    forwarded_values_cookies_forward = "none"
+    viewer_protocol_policy           = "allow-all"
+    min_ttl                          = null
+    default_ttl                      = null
+    max_ttl                          = null
+  }]    
 }
 
 
