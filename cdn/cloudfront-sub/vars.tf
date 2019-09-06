@@ -69,20 +69,20 @@ variable "cf_dist_domain_name" {
   type = "string"
 }
 
-variable "cf_dist_lambda_s3bucket" {
-  description = "The s3 bucket that contains the lambda function zip file."
-}
+# variable "cf_dist_lambda_s3bucket" {
+#   description = "The s3 bucket that contains the lambda function zip file."
+# }
 
 
-variable "cf_dist_lambda_edge_zip_filepath" { 
-  description = "The path of the zip file that contains lambda source code to uploade."
-}
+# variable "cf_dist_lambda_edge_zip_filepath" { 
+#   description = "The path of the zip file that contains lambda source code to uploade."
+# }
 
 
-variable "cf_dist_lambda_edge_prefix" {
-  default = ""
-  description = "A proper prefix for lambda@edge function."
-}
+# variable "cf_dist_lambda_edge_prefix" {
+#   default = ""
+#   description = "A proper prefix for lambda@edge function."
+# }
 
 
 variable "cf_dist_domain_certificate_arn" {
@@ -94,9 +94,9 @@ variable "cf_dist_lambda_function_handler" {
   description = "Name of the file the contains lambda code without file extension. Example 'redirect-rules'"
 }
 
-variable "deploy_lambda_edge_func" {
-  default = false
-}
+# variable "deploy_lambda_edge_func" {
+#   default = false
+# }
 
 variable "enable_output_comments" {
   default = false
