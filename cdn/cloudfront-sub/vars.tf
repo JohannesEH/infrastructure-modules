@@ -20,14 +20,14 @@ variable "cf_dist_comment" {
 
 variable "cf_dist_origins" {
   type = list(object({
-    origin_domain_name = string
-    origin_origin_path                              = string
+    domain_name = string
+    origin_path                              = string
     default_root_object                             = string
     is_s3_origin                                    = bool
-    origin_http_port                                = number
-    origin_https_port                               = number
-    origin_protocol_policy                          = string
-    origin_ssl_protocols                            = list(string)
+    http_port                                = number
+    https_port                               = number
+    protocol_policy                          = string
+    ssl_protocols                            = list(string)
     cache_behavior_path_pattern                     = string
     cache_behavior_allowed_methods                  = list(string)
     cache_behavior_cached_methods                   = list(string)
@@ -40,14 +40,14 @@ variable "cf_dist_origins" {
   }))
 
   default = [{ 
-    origin_domain_name                              = "example.com"
-    origin_origin_path                              = ""
+    domain_name                              = "example.com"
+    origin_path                              = ""
     default_root_object                             = "index.html"
     is_s3_origin                                    = false
-    origin_http_port                                = 80
-    origin_https_port                               = 443
-    origin_protocol_policy                          = "match-viewer"
-    origin_ssl_protocols                            = ["TLSv1.2"]
+    http_port                                = 80
+    https_port                               = 443
+    protocol_policy                          = "match-viewer"
+    ssl_protocols                            = ["TLSv1.2"]
     cache_behavior_path_pattern                     = ""
     cache_behavior_allowed_methods                  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cache_behavior_cached_methods                   = ["HEAD", "GET"]
