@@ -19,7 +19,25 @@ variable "cf_dist_comment" {
 }
 
 variable "cf_dist_origins" {
-  type = "list"
+  type = list(object({
+    origin_domain_name = string
+    origin_origin_path                              = string
+    default_root_object                             = string
+    is_s3_origin                                    = bool
+    origin_http_port                                = number
+    origin_https_port                               = number
+    origin_protocol_policy                          = string
+    origin_ssl_protocols                            = list(string)
+    cache_behavior_path_pattern                     = string
+    cache_behavior_allowed_methods                  = list(string)
+    cache_behavior_cached_methods                   = list(string)
+    cache_behavior_forwarded_values_query_string    = bool
+    cache_behavior_forwarded_values_cookies_forward = string
+    cache_behavior_viewer_protocol_policy           = string
+    cache_behavior_min_ttl                          = number
+    cache_behavior_default_ttl                      = number
+    cache_behavior_max_ttl                          = number
+  }))
 
   default = [{ 
     origin_domain_name                              = "example.com"
@@ -36,10 +54,12 @@ variable "cf_dist_origins" {
     cache_behavior_forwarded_values_query_string    = false
     cache_behavior_forwarded_values_cookies_forward = "none"
     cache_behavior_viewer_protocol_policy           = "allow-all"
-    cache_behavior_min_ttl                          = 0
-    cache_behavior_default_ttl                      = 0
-    cache_behavior_max_ttl                          = 0
+    cache_behavior_min_ttl                          = null
+    cache_behavior_default_ttl                      = null
+    cache_behavior_max_ttl                          = null
   }]
+  
+
   
   description = "Enable creating cloudfront even with none existing origins"
 }

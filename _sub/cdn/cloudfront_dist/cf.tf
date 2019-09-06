@@ -111,48 +111,48 @@ resource "aws_cloudfront_distribution" "cloudfront_distribution" {
   }
 
   dynamic "ordered_cache_behavior" {
-      for_each = length(var.origins) > 1 ? var.origins : [] # if only 1 record then we only define the default behavior
+      for_each = length(var.origins) > 1 ? var.cache_behaviors : [] # if only 1 record then we only define the default behavior
       iterator = it # alias for iterator. Otherwise the name would be of the dynamic blog "ordered_cache_behavior"
 
       content {
-        target_origin_id = it.value.origin_domain_name # origin
-        path_pattern = it.value.cache_behavior_path_pattern # path
-        allowed_methods  = it.value.cache_behavior_allowed_methods
-        cached_methods   = it.value.cache_behavior_cached_methods
+        target_origin_id = it.value.target_origin_id # origin
+        path_pattern = it.value.path_pattern # path
+        allowed_methods  = it.value.allowed_methods
+        cached_methods   = it.value.cached_methods
         
 
         forwarded_values {
-          query_string = it.value.cache_behavior_forwarded_values_query_string
+          query_string = it.value.forwarded_values_query_string
 
           cookies {
-            forward = it.value.cache_behavior_forwarded_values_cookies_forward
+            forward = it.value.forwarded_values_cookies_forward
           }
         }
 
-        viewer_protocol_policy = it.value.cache_behavior_viewer_protocol_policy
-        min_ttl                = it.value.cache_behavior_min_ttl
-        default_ttl            = it.value.cache_behavior_default_ttl
-        max_ttl                = it.value.cache_behavior_max_ttl
+        viewer_protocol_policy = it.value.viewer_protocol_policy
+        min_ttl                = it.value.min_ttl
+        default_ttl            = it.value.default_ttl
+        max_ttl                = it.value.max_ttl
       }       
     }
 
   default_cache_behavior { 
-    allowed_methods  = "${length(var.origins) == 1 ? var.origins[0].cache_behavior_allowed_methods: ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"] }" # This to allow redirect 
-    cached_methods   = "${length(var.origins) == 1 ? var.origins[0].cache_behavior_cached_methods: ["HEAD", "GET"] }" 
-    target_origin_id = var.origins[0].origin_domain_name
+    allowed_methods  = "${length(var.origins) == 1 ? var.cache_behaviors[0].allowed_methods: ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"] }" # This to allow redirect 
+    cached_methods   = "${length(var.origins) == 1 ? var.cache_behaviors[0].cached_methods: ["HEAD", "GET"] }" 
+    target_origin_id = var.cache_behaviors[0].target_origin_id
 
     forwarded_values {
-      query_string = "${length(var.origins) == 1 ? var.origins[0].cache_behavior_forwarded_values_query_string: false }" 
+      query_string = "${length(var.origins) == 1 ? var.cache_behaviors[0].forwarded_values_query_string: false }" 
 
       cookies {
-        forward = "${length(var.origins) == 1 ? var.origins[0].cache_behavior_forwarded_values_cookies_forward: "none" }" 
+        forward = "${length(var.origins) == 1 ? var.cache_behaviors[0].forwarded_values_cookies_forward: "none" }" 
       }
     }
 
-    viewer_protocol_policy = "${length(var.origins) == 1 ? var.origins[0].cache_behavior_viewer_protocol_policy: "allow-all" }" 
-    min_ttl                = "${length(var.origins) == 1 ? var.origins[0].cache_behavior_min_ttl: 0 }" 
-    default_ttl            = "${length(var.origins) == 1 ? var.origins[0].cache_behavior_default_ttl: 0 }" 
-    max_ttl                = "${length(var.origins) == 1 ? var.origins[0].cache_behavior_max_ttl: 0 }" 
+    viewer_protocol_policy = "${length(var.origins) == 1 ? var.cache_behaviors[0].viewer_protocol_policy: "allow-all" }" 
+    min_ttl                = "${length(var.origins) == 1 ? var.cache_behaviors[0].min_ttl: null }"
+    default_ttl            = "${length(var.origins) == 1 ? var.cache_behaviors[0].default_ttl: null }"
+    max_ttl                = "${length(var.origins) == 1 ? var.cache_behaviors[0].max_ttl: null }"
 
 
     dynamic "lambda_function_association"{
