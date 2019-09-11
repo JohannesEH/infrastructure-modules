@@ -28,11 +28,6 @@ variable "origin_access_identity" {
   description = "The path that identifies the origin access identity to be used for accessing s3 bucket origins."
 }
 
-variable "lambda_edge_qualified_arn" {
-  description = "The arn of the published version of the lambda@edge function. At the moment, it's required to have the function is created in US-East-1 region."
-  default = ""
-}
-
 variable "logging_enable" {
   default = false
 }
