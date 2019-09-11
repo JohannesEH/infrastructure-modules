@@ -139,7 +139,7 @@ resource "aws_cloudfront_distribution" "cloudfront_distribution" {
   default_cache_behavior { 
     allowed_methods  = "${length(var.origins) == 1 ? var.cache_behaviors[0].allowed_methods: ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"] }" # This to allow redirect 
     cached_methods   = "${length(var.origins) == 1 ? var.cache_behaviors[0].cached_methods: ["HEAD", "GET"] }" 
-    target_origin_id = var.cache_behaviors[0].target_origin_id
+    target_origin_id = var.cache_behaviors[0].origin_id
 
     forwarded_values {
       query_string = "${length(var.origins) == 1 ? var.cache_behaviors[0].forwarded_values_query_string: false }" 
