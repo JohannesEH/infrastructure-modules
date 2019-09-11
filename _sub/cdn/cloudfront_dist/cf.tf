@@ -79,9 +79,9 @@ resource "aws_cloudfront_distribution" "cloudfront_distribution" {
     for_each = var.origins
     iterator = it
       content {
-        domain_name = it.value.origin_domain_name
-        origin_id = it.value.origin_domain_name
-        origin_path = it.value.origin_origin_path
+        domain_name = lookup(it.value, "domain_name", null) #it.value.domain_name
+        origin_id = it.value.domain_name
+        origin_path = it.value.origin_path
               
         dynamic "s3_origin_config" {
           for_each = it.value.is_s3_origin ? [1] : [] # apply s3 origin settings
