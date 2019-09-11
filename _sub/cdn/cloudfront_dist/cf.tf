@@ -80,11 +80,11 @@ resource "aws_cloudfront_distribution" "cloudfront_distribution" {
     iterator = it
       content {
         domain_name = lookup(it.value, "domain_name", null) #it.value.domain_name
-        origin_id = it.value.domain_name
-        origin_path = it.value.origin_path
+        origin_id = it.value.origin_id
+        origin_path = lookup(it.value, "origin_path", null) #it.value.origin_path
               
         dynamic "s3_origin_config" {
-          for_each = it.value.is_s3_origin ? [1] : [] # apply s3 origin settings
+          for_each = lookup(it.value, "origin_path", false) ? [1] : [] # apply s3 origin settings # it.value.is_s3_origin
           iterator = s3_origin_config
           content {
             origin_access_identity = "${var.origin_access_identity}"
@@ -95,10 +95,10 @@ resource "aws_cloudfront_distribution" "cloudfront_distribution" {
           for_each = it.value.is_s3_origin ? [] : [1] # apply custom origin settings
           iterator = custom_origin_config
           content {
-            http_port              = it.value.origin_http_port
-            https_port             = it.value.origin_https_port
-            origin_protocol_policy = it.value.origin_protocol_policy #"match-viewer"
-            origin_ssl_protocols   = it.value.origin_ssl_protocols # ["TLSv1.2"]
+            http_port              = lookup(it.value, "value.http_port", 80) #it.value.http_port
+            https_port             = lookup(it.value, "value.https_port", 443) #it.value.http_port
+            origin_protocol_policy = lookup(it.value, "protocol_policy", "match-viewer") #"match-viewer"
+            origin_ssl_protocols   = lookup(it.value, "ssl_protocols", ["TLSv1.2"]) 
           }
       } 
     }
