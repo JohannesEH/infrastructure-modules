@@ -11,9 +11,6 @@ variable "aws_assume_role_arn" {
 }
 
 
-variable "lamda_edge_prefix" {
-  
-}
 
 variable "deploy_lambda_edge_func" {
   default = true

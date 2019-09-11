@@ -19,8 +19,8 @@ provider "aws" {
 module "aws_lambda_edge_function" {
   source = "../../_sub/compute/lambda-edge"
   deploy = "${var.deploy_lambda_edge_func}"
-  lambda_function_name = "${var.lamda_edge_prefix}-cf-redirect-rules"
-  lambda_role_name = "${var.lamda_edge_prefix}-cf-redirect-rules"
+  lambda_function_name = "${var.lambda_edge_prefix}-cf-redirect-rules"
+  lambda_role_name = "${var.lambda_edge_prefix}-cf-redirect-rules"
   lambda_function_handler = "${var.lambda_function_handler}"   
   s3_bucket = "${var.s3_bucket}"
   s3_key = "${module.s3_object_upload_lambda_edge.s3_object_key}"
