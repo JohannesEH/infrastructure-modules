@@ -115,7 +115,7 @@ resource "aws_cloudfront_distribution" "cloudfront_distribution" {
       iterator = it # alias for iterator. Otherwise the name would be of the dynamic blog "ordered_cache_behavior"
 
       content {
-        target_origin_id = it.value.target_origin_id # origin
+        target_origin_id = it.value.origin_id # origin
         path_pattern = it.value.path_pattern # path
         allowed_methods  = it.value.allowed_methods
         cached_methods   = it.value.cached_methods
