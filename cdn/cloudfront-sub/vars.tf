@@ -6,9 +6,9 @@ variable "aws_region" {
   type = "string"
 }
 
-variable "aws_assume_role_arn" {
-  type = "string"
-}
+# variable "aws_assume_role_arn" {
+#   type = "string"
+# }
 
 # --------------------------------------------------
 # AWS
