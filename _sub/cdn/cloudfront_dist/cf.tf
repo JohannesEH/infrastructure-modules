@@ -94,7 +94,7 @@ resource "aws_cloudfront_distribution" "cloudfront_distribution" {
 
         dynamic "lambda_function_association"{
           for_each = lookup(it.value, "lambda_function_association_lambda_arn", null) != null ? [1] : [] #length(var.lambda_edge_qualified_arn) > 0 ? [1] : []
-          iterator = it
+          iterator = it_sub
 
           content{
             event_type   = lookup(it.value, "lambda_function_association_event_type", "origin-request")
