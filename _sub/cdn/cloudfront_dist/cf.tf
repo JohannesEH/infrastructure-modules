@@ -91,6 +91,17 @@ resource "aws_cloudfront_distribution" "cloudfront_distribution" {
         min_ttl                = lookup(it.value, "min_ttl", null) # it.value.min_ttl
         default_ttl            = lookup(it.value, "default_ttl", null) # it.value.default_ttl
         max_ttl                = lookup(it.value, "max_ttl", null) # it.value.max_ttl
+
+        dynamic "lambda_function_association"{
+          for_each = lookup(it.value, "lambda_function_association_lambda_arn", null) != null ? [1] : [] #length(var.lambda_edge_qualified_arn) > 0 ? [1] : []
+          iterator = it
+
+          content{
+            event_type   = lookup(it.value, "lambda_function_association_event_type", "origin-request")
+            lambda_arn   = it.value.lambda_function_association_lambda_arn
+            include_body = lookup(it.value, "lambda_function_association_include_body", false)
+          }
+        }        
       }       
     }
 
