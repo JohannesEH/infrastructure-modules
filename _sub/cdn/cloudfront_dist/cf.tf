@@ -103,7 +103,7 @@ resource "aws_cloudfront_distribution" "cloudfront_distribution" {
         #   }
         # }
         dynamic "lambda_function_association"{
-            for_each = lookup(it.value, "lambda_function_association_list", null) != null ? it.value.lambda_function_association_list : []
+            for_each = it.value.lambda_function_association_list # lookup(it.value, "lambda_function_association_list", null) != null ? it.value.lambda_function_association_list : []
             iterator = it_sub
 
             content{
