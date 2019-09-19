@@ -103,7 +103,7 @@ resource "aws_cloudfront_distribution" "cloudfront_distribution" {
         #   }
         # }
         dynamic "lambda_function_association"{
-            for_each = it.value.lambda_function_association_list # lookup(it.value, "lambda_function_association_list", null) != null ? it.value.lambda_function_association_list : []
+            for_each = lookup(it.value, "lambda_function_association_list", null) != null ? it.value.lambda_function_association_list : []
             iterator = it_sub
 
             content{
@@ -135,14 +135,14 @@ resource "aws_cloudfront_distribution" "cloudfront_distribution" {
 
 
     dynamic "lambda_function_association"{
-      for_each = lookup(var.cache_behaviors[0], "lambda_function_association_lambda_arn", null) != null ? [1] : []
-      iterator = it
+        for_each = lookup(it.value, "lambda_function_association_list", null) != null ? it.value.lambda_function_association_list : []
+        iterator = it_sub
 
-      content{
-        event_type   = lookup(var.cache_behaviors[0], "lambda_function_association_event_type", "origin-request")
-        lambda_arn   = var.cache_behaviors[0].lambda_function_association_lambda_arn
-        include_body = lookup(var.cache_behaviors[0], "lambda_function_association_include_body", false)
+        content{
+          event_type   = it_sub.value.lambda_function_association_event_type # lookup(, "", "origin-request")
+          lambda_arn   = it_sub.value.lambda_function_association_lambda_arn
+          include_body = lookup(it_sub.value, "lambda_function_association_include_body", false)
+        }
       }
-    }
   }    
 }
