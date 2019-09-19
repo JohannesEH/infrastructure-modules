@@ -20,7 +20,7 @@ resource "aws_cloudfront_distribution" "cloudfront_distribution" {
   default_root_object = "index.html" # Default Root Object
 
   dynamic "logging_config" {
-    for_each = var.logging_enable ? [1] : []
+    for_each = "${var.logging_enable}" ? [1] : []
     content {
       include_cookies = "${var.logging_include_cookies}"
       bucket          = "${var.logging_bucket}"
