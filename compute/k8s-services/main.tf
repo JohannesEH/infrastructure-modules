@@ -322,3 +322,24 @@ module "harbor_deploy" {
   aws_workload_account_id        = "${var.aws_workload_account_id}"
   kiam_server_role_id            = "${module.kiam_deploy.server_role_id}"
 }
+
+# --------------------------------------------------
+# Istio - depends on helm
+# --------------------------------------------------
+
+module "Istio" {
+  source    = "../../_sub/compute/k8s-istio"
+  istio_helm_repo = "${var.istio_helm_repo}"
+  deploy    = "${var.istio_deploy}"
+  security_group_id_nodes   = "${data.terraform_remote_state.cluster.eks_cluster_nodes_sg_id}"
+  security_group_id_masters = "${data.terraform_remote_state.cluster.eks_cluster_masters_sg_id}"
+}
+
+module "istio_nlb" {
+  source                    = "../../_sub/compute/eks-nlb-istio"
+  deploy                    = "${var.istio_deploy}"
+  cluster_name              = "${var.eks_cluster_name}"
+  vpc_id                    = "${data.terraform_remote_state.cluster.eks_cluster_vpc_id}"
+  subnet_ids                = ["${data.terraform_remote_state.cluster.eks_cluster_subnet_ids}"]
+  autoscaling_group_id      = "${data.terraform_remote_state.cluster.eks_worker_autoscaling_group_id}"
+}

@@ -188,3 +188,15 @@ variable "flux_registry_password" {
 variable "flux_registry_email" {
   description = "Email address for the user that enables Flux to read the docker registry information."
 }
+
+# --------------------------------------------------
+# Istio
+# --------------------------------------------------
+
+variable "istio_deploy" {
+  default = false
+}
+
+variable "istio_helm_repo" {
+  default = "https://storage.googleapis.com/istio-release/releases/1.4.0/charts/"
+}
