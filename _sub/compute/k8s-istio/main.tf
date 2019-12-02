@@ -13,6 +13,21 @@ resource "aws_security_group_rule" "webhooks" {
   security_group_id = "${var.security_group_id_nodes}"
 }
 
+resource "aws_security_group_rule" "http" {
+  count = "${var.deploy}"
+  type            = "ingress"
+  from_port       = 31380
+  to_port         = 31380
+  protocol        = "tcp"
+  # Opening to 0.0.0.0/0 can lead to security vulnerabilities.
+  cidr_blocks = ["0.0.0.0/0"] # add a CIDR block here
+  #source_security_group_id = "${var.security_group_id_masters}"
+  #prefix_list_ids = ["pl-12c4e678"]
+  description = "Enable http traffic for istio nlb"
+
+  security_group_id = "${var.security_group_id_nodes}"
+}
+
 resource "kubernetes_namespace" "istio" {
   count = "${var.deploy}"
   metadata {
