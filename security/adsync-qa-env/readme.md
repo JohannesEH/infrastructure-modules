@@ -1,0 +1,2 @@
+# adsync-qa-env
+
