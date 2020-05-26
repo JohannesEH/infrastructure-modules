@@ -206,6 +206,30 @@ module "eks_nodegroup2_workers" {
 
 
 # --------------------------------------------------
+# NODE GROUP 3
+# --------------------------------------------------
+
+module "eks_ng3" {
+  source = "../../_sub/compute/eks-nodegroup"
+
+  cluster_name    = var.eks_cluster_name
+  node_group_name = "ng3"
+  node_role_arn   = module.eks_workers.worker_role_arn
+  subnet_ids      = module.eks_workers_subnet.subnet_ids
+
+  desired_size = var.eks_ng3_desired_size
+  min_size     = var.eks_ng3_desired_size
+  max_size     = var.eks_ng3_desired_size > 0 ? var.eks_ng3_max_size : 0
+
+  disk_size      = var.eks_worker_instance_storage_size
+  instance_types = var.eks_ng3_instance_types
+
+  ec2_ssh_key               = module.eks_workers_keypair.key_name
+  # source_security_group_ids = [module.eks_workers_security_group.id]
+}
+
+
+# --------------------------------------------------
 # OTHER
 # --------------------------------------------------
 

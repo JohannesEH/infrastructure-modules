@@ -188,6 +188,27 @@ variable "eks_nodegroup2_max_size" {
   default = 10
 }
 
+
+# --------------------------------------------------
+# EKS Nodegroup 3
+# --------------------------------------------------
+
+variable "eks_ng3_instance_types" {
+  type    = list(string)
+  default = []
+}
+
+variable "eks_ng3_desired_size" {
+  type    = number
+  default = 0
+}
+
+variable "eks_ng3_max_size" {
+  type    = number
+  default = 10
+}
+
+
 # --------------------------------------------------
 # Blaster Configmap
 # --------------------------------------------------
